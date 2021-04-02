@@ -1,8 +1,5 @@
 pipeline{
     agent any
-    tools {
-      maven 'maven3'
-    }
     environment {
       DOCKER_TAG = getVersion()
     }
@@ -28,11 +25,11 @@ pipeline{
         
         stage('DockerHub Push'){
             steps{
-                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubpwd')]) {
+                withCredentials([string(credentialsId: 'Docker-hub', variable: 'dockerHubpwd')]) {
                     sh "docker login -u sreelekhaj -p ${dockerHubpwd}"
                 }
                 
-                sh "docker push sreelekhaj/hariapp:${DOCKER_TAG} "
+                sh "docker push sreelekhaj/hariapp:${DOCKER_TAG}"
             }
         }
         
